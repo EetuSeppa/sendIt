@@ -3,11 +3,12 @@ import React from "react";
 class Homepage extends React.Component {
     render () {
     return (
-        <div class="homepage">
-            <h1 className="font-bold underline">Welcome</h1>
-            <br/>
-            <div >
-                <button onClick = {() => this.props.handler("browse")}>Browse climbs</button>
+        <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+            <h1 class="text-center font-bold underline">Welcome</h1>
+            <img src="https://media.istockphoto.com/photos/female-rock-climber-falling-picture-id146777821"
+                 class="object-center rounded-xl shadow-xl"></img>
+            <div class="space-x-5"> 
+                <button class="hover:bg-red-500" onClick = {() => this.props.handler("browse")}>Browse climbs</button>
                 <button>Create a climb</button>
                 <button>History</button>
                 <button>Progress</button>
