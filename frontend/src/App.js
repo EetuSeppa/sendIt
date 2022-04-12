@@ -42,10 +42,9 @@ class App extends React.Component {
       case "progress":
           view = (<Progress />);
 	  break;
-
       }
-      return view;
 
+      return view;
   }
 }
 
