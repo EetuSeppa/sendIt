@@ -2,6 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from './Homepage';
 import Browse from './Browse';
+import History from './History';
+import Progress from './Progress';
+import Create from './Create';
 import React from 'react';
 
 class App extends React.Component {
@@ -17,11 +20,20 @@ class App extends React.Component {
   }
 
   render() {
+      let view;
       if (this.state.page === "home") {
-        return (<Homepage handler={this.changeHandler}/>);
+        view = (<Homepage handler={this.changeHandler}/>);
       } else if (this.state.page === "browse") {
-        return (<Browse/>);
+        view = (<Browse/>);
+      } else if (this.state.page === "history") {
+        view = (<History />);
+      } else if (this.state.page === "create") {
+        view = (<Create />);
+      } else if (this.state.page === "progress") {
+        view = (<Progress />);
       }
+
+      return view;
 
   }
 }

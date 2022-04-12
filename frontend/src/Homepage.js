@@ -9,9 +9,9 @@ class Homepage extends React.Component {
                  class="object-center rounded-xl shadow-xl"></img>
             <div class="space-x-5"> 
                 <button class="hover:bg-red-500" onClick = {() => this.props.handler("browse")}>Browse climbs</button>
-                <button>Create a climb</button>
-                <button>History</button>
-                <button>Progress</button>
+                <button onClick = {() => this.props.handler("create")}>Create a climb</button>
+                <button onClick = {() => this.props.handler("history")}>History</button>
+                <button onClick = {() => this.props.handler("progress")}>Progress</button>
             </div>
         </div>
     );
