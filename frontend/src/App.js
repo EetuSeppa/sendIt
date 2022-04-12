@@ -28,19 +28,19 @@ class App extends React.Component {
 	  break;
 
       case "browse":
-          view = (<Browse/>);
+          view = (<Browse handler={this.changeHandler}/>);
 	  break;
 
       case "history":
-          view = (<History />);
+          view = (<History handler={this.changeHandler}/>);
 	  break;
 
       case "create":
-          view = (<Create />);
+          view = (<Create handler={this.changeHandler}/>);
 	  break;
 
       case "progress":
-          view = (<Progress />);
+          view = (<Progress handler={this.changeHandler}/>);
 	  break;
       }
 

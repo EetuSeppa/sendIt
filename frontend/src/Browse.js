@@ -1,9 +1,12 @@
 import React from 'react';
+import Back from './Back';
 
 class Browse extends React.Component {
-  render() {
-      return (<h1>browsing :)</h1>);
-  }
+    render() {
+	return (
+	    <Back handler={this.props.handler}/>
+	);
+    }
 }
 
 export default Browse;
