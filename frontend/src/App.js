@@ -21,18 +21,29 @@ class App extends React.Component {
 
   render() {
       let view;
-      if (this.state.page === "home") {
-        view = (<Homepage handler={this.changeHandler}/>);
-      } else if (this.state.page === "browse") {
-        view = (<Browse/>);
-      } else if (this.state.page === "history") {
-        view = (<History />);
-      } else if (this.state.page === "create") {
-        view = (<Create />);
-      } else if (this.state.page === "progress") {
-        view = (<Progress />);
-      }
+      switch(this.state.page) {
 
+      case "home":
+          view = (<Homepage handler={this.changeHandler}/>);
+	  break;
+
+      case "browse":
+          view = (<Browse/>);
+	  break;
+
+      case "history":
+          view = (<History />);
+	  break;
+
+      case "create":
+          view = (<Create />);
+	  break;
+
+      case "progress":
+          view = (<Progress />);
+	  break;
+
+      }
       return view;
 
   }
