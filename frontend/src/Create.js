@@ -1,29 +1,72 @@
 import React from 'react';
 import Hold from './Hold';
-import HoldTypeButton from './HoldTypeButton';
+import InsertRouteInfo from './InsertRouteInfo';
 
 class Create extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {holdType: "Default"};
+      this.state = {
+        holdType: "Default",
+        selectedHolds: new Map(),
+        routeInformation: {},
+        displayInfoInsert: false
+      };
       this.changeHoldType = this.changeHoldType.bind(this);
+      this.addHold = this.addHold.bind(this);
+      this.doneButtonClicked = this.doneButtonClicked.bind(this);
+      this.submitRoute = this.submitRoute.bind(this);
+  }
+
+  submitRoute (userInput) {
+    console.log(userInput);
   }
 
   loadHolds () {
     const obj = require('./Wall.json');
     let holds = [];
-    obj.Wall.Holds.forEach (elem => {
+    obj.Wall.Holds.forEach ((elem, index) => {
       holds.push(<Hold x={elem.x} y={elem.y}
-                       h={elem.h} w={elem.w}/>
+                       h={elem.h} w={elem.w}
+                       type={this.state.holdType}
+                       handler={this.addHold}
+                       key={index}
+                  />
                 );
     })
 
     return holds;
   }
 
+  addHold (holdX, holdY, holdHeight, holdWidth, holdId) {
+    let previouslyAdded = this.state.selectedHolds.get(holdId);
+    if (previouslyAdded != undefined) {
+      if (this.state.holdType == previouslyAdded.type) {
+        //Delete hold if the hold has been previously clicked with same type
+        this.state.selectedHolds.delete(holdId);
+        return;
+      }
+    }
+    let obj = {
+      x: holdX,
+      y: holdY,
+      h: holdHeight,
+      w: holdWidth,
+      type: this.state.holdType
+    };
+    this.state.selectedHolds.set(holdId, obj);
+  }
+
   changeHoldType (type) {
-    console.log(this.state.holdType);
-    this.setState = {holdType: type};
+    if (type == this.state.holdType) { //If same button pressed twice
+      this.setState({holdType: "Default"});
+    } else {
+      this.setState({holdType: type});
+    }
+  }
+
+  doneButtonClicked () {
+    const holds = this.state.selectedHolds.values();
+    this.setState({displayInfoInsert: true});
   }
 
   render() {
@@ -35,11 +78,12 @@ class Create extends React.Component {
           {holdsToRender}
         </svg>
         <div class="space-x-5">
-          <HoldTypeButton handler={this.changeHoldType} type="Start"/>
-          <HoldTypeButton handler={this.changeHoldType} type="Top"/>
-          <HoldTypeButton handler={this.changeHoldType} type="Feet"/>
-          <button>Done</button>
+          <button onClick={() => this.changeHoldType("Start")}>Start</button>
+          <button onClick={() => this.changeHoldType("Top")}>Top</button>
+          <button onClick={() => this.changeHoldType("Feet")}>Feet</button>
+          <button onClick={this.doneButtonClicked}>Done</button>
         </div>
+        {this.state.displayInfoInsert? <InsertRouteInfo handler={this.submitRoute}/> : null}
       </div>
     );
   }
