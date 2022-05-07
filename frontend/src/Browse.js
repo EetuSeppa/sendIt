@@ -1,13 +1,15 @@
 import React from 'react';
 import Back from './Back';
 import RouteView from './RouteView';
+import BrowseFilter from './BrowseFilter';
 
 class Browse extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			retrievedRoutes: null,
-			routeView: null
+			routeView: null,
+			filterView: false
 		}
 		this.retrieveAllRoutes = this.retrieveAllRoutes.bind(this);
 		this.changeToRouteView = this.changeToRouteView.bind(this);
@@ -41,7 +43,7 @@ class Browse extends React.Component {
 			let routeList = [];
 			this.state.retrievedRoutes.routes.forEach((element, i) => {
 				routeList.push(
-					<li onClick={() => this.changeToRouteView(element)}> 
+					<li key={i} onClick={() => this.changeToRouteView(element)}> 
 						<h2>Name: {element.name}</h2>
 						<h2>Grade: {element.grade}</h2>
 					</li>
@@ -55,6 +57,9 @@ class Browse extends React.Component {
 						<ul>
 							{routeList}
 						</ul>
+						<br/>
+						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
+						{this.state.filterView? <BrowseFilter />: null}
 					</div>
 					);
 				} else {

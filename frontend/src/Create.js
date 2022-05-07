@@ -40,6 +40,7 @@ class Create extends React.Component {
                        type={this.state.holdType}
                        handler={this.addHold}
                        id={index}
+                       key={index}
                   />
                 );
     })

@@ -9,13 +9,12 @@ class RouteView extends React.Component {
     loadHolds () {
         let holds = [];
         this.props.data.holds.forEach ((elem, index) => {
-            console.log(elem);
-          holds.push(<ViewHold x={elem.x} y={elem.y}
+        holds.push(<ViewHold x={elem.x} y={elem.y}
                            h={elem.h} w={elem.w}
                            type={elem.type}
-                           id={index}
+                           key={index}
                       />
-                    );
+                  );
         })
     
         return holds;
@@ -29,6 +28,8 @@ class RouteView extends React.Component {
               <svg class="p-6 max-w-sm mx-auto inset-0 absolute" width="400px" height="350">
                 {holdsToRender}
               </svg>
+              <h2>{this.props.data.name}</h2>
+              <h2>{this.props.data.grade}</h2>
             </div>
         );
     }
