@@ -25,7 +25,7 @@ class Hold extends React.Component {
             
         this.props.handler(this.props.x, this.props.y,
                            this.props.h, this.props.y,
-                           this.props.key
+                           this.props.id
                            );
         this.setState({type: this.props.type});
     }

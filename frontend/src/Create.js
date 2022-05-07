@@ -18,7 +18,17 @@ class Create extends React.Component {
   }
 
   submitRoute (userInput) {
-    console.log(userInput);
+    userInput.holds = [];
+    this.state.selectedHolds.forEach((value, key) => {
+      userInput.holds.push(value);
+    });
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8000/saveRoute", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(userInput));
+
+    //Add error handling based on status code
   }
 
   loadHolds () {
@@ -29,7 +39,7 @@ class Create extends React.Component {
                        h={elem.h} w={elem.w}
                        type={this.state.holdType}
                        handler={this.addHold}
-                       key={index}
+                       id={index}
                   />
                 );
     })
