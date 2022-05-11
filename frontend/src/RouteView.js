@@ -1,5 +1,6 @@
 import React from 'react';
 import ViewHold from './ViewHold';
+import getGradeFromIndex from './GradeFromIndex';
 
 class RouteView extends React.Component {
 	constructor(props) {
@@ -29,7 +30,7 @@ class RouteView extends React.Component {
                 {holdsToRender}
               </svg>
               <h2>{this.props.data.name}</h2>
-              <h2>{this.props.data.grade}</h2>
+              <h2>{getGradeFromIndex(this.props.data.grade)}</h2>
             </div>
         );
     }

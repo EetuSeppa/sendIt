@@ -55,4 +55,34 @@ app.get('/getRoutes', function (req, res, next) {
     });
 });
 
+app.post('/filterRoutes', function (req, res, next) {
+    let query = {
+        grade: {$gte: req.body.gradeLow, $lte: req.body.gradeHigh},
+    };
+
+    dbClient.connect ((err, client) => {
+        if (err)
+            console.log(err);
+        const db = client.db(dbName);
+        
+        db.collection("routes").find(query).toArray((err, routes) => {
+            let resObj = {
+                routes: []
+            };
+
+            routes.forEach((element) => {
+                resObj.routes.push({
+                    name: element.name,
+                    description: element.description,
+                    feet: element.feet,
+                    grade: element.grade,
+                    holds: element.holds
+                });
+            });
+            res.status(200).send(JSON.stringify(resObj));
+        });
+    });
+
+});
+
 app.listen(PORT, ()=>console.log("Listening on port: ", PORT));

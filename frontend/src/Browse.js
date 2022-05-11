@@ -2,6 +2,7 @@ import React from 'react';
 import Back from './Back';
 import RouteView from './RouteView';
 import BrowseFilter from './BrowseFilter';
+import getGradeFromIndex from './GradeFromIndex'; 
 
 class Browse extends React.Component {
 	constructor(props) {
@@ -13,6 +14,7 @@ class Browse extends React.Component {
 		}
 		this.retrieveAllRoutes = this.retrieveAllRoutes.bind(this);
 		this.changeToRouteView = this.changeToRouteView.bind(this);
+		this.retrieveFilteredRoutes = this.retrieveFilteredRoutes.bind(this);
 	}
 
 	changeToRouteView (route) {
@@ -38,6 +40,26 @@ class Browse extends React.Component {
 		this.retrieveAllRoutes();
 	}
 
+	retrieveFilteredRoutes (filterData) {
+		this.setState({
+				filterView: false,
+				retrievedRoutes: null
+		});
+
+		let xhr = new XMLHttpRequest();
+    	xhr.open("POST", "http://localhost:8000/filterRoutes", true);
+    	xhr.setRequestHeader("Content-Type", "application/json");
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				let responseObj = JSON.parse(xhr.response);
+				this.setState({retrievedRoutes: responseObj});
+			}
+		}
+
+    	xhr.send(JSON.stringify(filterData));
+	}
+
     render() {
 		if (this.state.retrievedRoutes != null) {
 			let routeList = [];
@@ -45,7 +67,7 @@ class Browse extends React.Component {
 				routeList.push(
 					<li key={i} onClick={() => this.changeToRouteView(element)}> 
 						<h2>Name: {element.name}</h2>
-						<h2>Grade: {element.grade}</h2>
+						<h2>Grade: {getGradeFromIndex(element.grade)}</h2>
 					</li>
 				);
 			});
@@ -59,7 +81,7 @@ class Browse extends React.Component {
 						</ul>
 						<br/>
 						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <BrowseFilter />: null}
+						{this.state.filterView? <BrowseFilter handler={this.retrieveFilteredRoutes}/>: null}
 					</div>
 					);
 				} else {
