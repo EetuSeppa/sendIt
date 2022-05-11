@@ -25,6 +25,13 @@ class GradeFilterSlider extends React.Component {
 
     }    
 
+    componentDidMount () {
+        this.props.gradeHandler(
+            Math.floor(this.min_determineSliderPosition() / (100/22)),
+            Math.floor(this.max_determineSliderPosition() / (100/22))
+        )
+    }
+
     min_getGradeFromPosition () {
       let gradeArr = [
         '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+',

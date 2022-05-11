@@ -10,7 +10,8 @@ class Browse extends React.Component {
 		this.state = {
 			retrievedRoutes: null,
 			routeView: null,
-			filterView: false
+			filterView: false,
+			unsortedRoutes: []
 		}
 		this.retrieveAllRoutes = this.retrieveAllRoutes.bind(this);
 		this.changeToRouteView = this.changeToRouteView.bind(this);
@@ -53,7 +54,22 @@ class Browse extends React.Component {
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				let responseObj = JSON.parse(xhr.response);
-				this.setState({retrievedRoutes: responseObj});
+				this.setState({unsortedRoutes: responseObj});
+
+				if (filterData.sortBy == "Alphabetical") {
+					this.state.unsortedRoutes.routes.sort((a, b) => {
+						return (filterData.order == "Ascending"? 
+												a.name.localeCompare(b.name):
+												b.name.localeCompare(a.name))
+					});
+				} else if (filterData.sortBy == "Grade") {
+					this.state.unsortedRoutes.routes.sort((a, b) => {
+						return (filterData.order == "Ascending"? 
+												a.grade - b.grade:
+												b.grade - a.grade)
+					});
+				}
+				this.setState({retrievedRoutes: Object.assign({}, this.state.unsortedRoutes)});
 			}
 		}
 
