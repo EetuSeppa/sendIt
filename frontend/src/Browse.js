@@ -102,7 +102,7 @@ class Browse extends React.Component {
 					);
 				} else {
 					return (
-					<RouteView data={this.state.routeView} />
+					<RouteView username={this.props.username} data={this.state.routeView} />
 					);
 				}
 		} else {

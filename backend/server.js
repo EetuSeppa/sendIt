@@ -1,16 +1,32 @@
+const users = require('./UserDatabase');
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
+const { addRouteToUser } = require('./UserDatabase');
 
 const app = express();
 const PORT = 8000;
 const db = process.argv[2]; //Read db address from command line arguments
-const dbName = "sendIt"
+const dbName = "sendIt";
 
 const dbClient = new MongoClient(db);
 
 app.use(express.json());
 app.use(cors());
+
+app.post('/addUser', function (req, res, next) {
+    users.addUser(req.body.username, dbClient);
+});
+
+app.post('/addRouteReview', function (req, res, next) {
+    dbClient.connect ((err, client) => {
+        if (err) {
+            console.log(err);
+        }
+        //Adds a climbed route to user element
+        users.addRouteToUser(req.body, dbClient);
+    })
+});
 
 app.post('/saveRoute', function (req, res, next) {
     dbClient.connect ((err, client) => {
