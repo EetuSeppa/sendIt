@@ -4,7 +4,7 @@ App for taking your climbing training to the next level
 
 ## Installation
 
-### Windows  
+### * Windows  
 [Download node.js](https://nodejs.org/en/download/) 
  
 [Download mongodb](https://www.mongodb.com/try/download/community)
@@ -38,5 +38,5 @@ npm install
 Start backend:
 ```bash
 node server.js mongodb://localhost:27017
-```
-                                                                                                     ~                                                                                                     ~                                                                                                     ~                                                                                                     ~                                                                                                     ~                                     
+``` 
+
