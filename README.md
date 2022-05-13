@@ -13,13 +13,13 @@ Configure mongodb
 
 Clone this repository:
 ```bash
-git clone https://github.com/EetuSeppa/sendIt 
+git clone https://github.com/EetuSeppa/sendIt
 cd sendIt
 ```
 
 Navigate to frontend and install dependencies:
 ```bash
-cd frontend \
+cd frontend
 npm install
 ```
 
@@ -30,8 +30,8 @@ npm start
 
 Navigate to backend and install dependencies:
 ```bash
-cd .. \
-cd backend \
+cd ..
+cd backend
 npm install
 ```
 
