@@ -12,7 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       page: "username",
-      username: null
+      username: null,
+      routesClimbedByUser: null
     };
 
     this.changeHandler = this.changeHandler.bind(this);

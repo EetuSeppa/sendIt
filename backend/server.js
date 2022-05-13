@@ -18,6 +18,12 @@ app.post('/addUser', function (req, res, next) {
     users.addUser(req.body.username, dbClient);
 });
 
+app.post('/getClimbedRoutes', function (req, res, next) {
+   users.retrieveClimbedRoutes(req.body, dbClient).then((result)=> {
+        res.send(JSON.stringify(result));
+   })
+});
+
 app.post('/addRouteReview', function (req, res, next) {
     dbClient.connect ((err, client) => {
         if (err) {
