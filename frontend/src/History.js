@@ -27,11 +27,18 @@ class History extends React.Component {
           let tempRouteList = [];
 
           this.state.retrievedRoutes.routes.forEach((element, index) => {
+            //Parse date string to year, month and day
+            let splitDate = element.dateCompleted.split(/\D+/);
+            let year = splitDate[0];
+            let month = splitDate[1];
+            let day = splitDate[2];
+
             tempRouteList.push(
               <li key={index} onClick={() => this.changeToRouteView(element)}>
                 Name: {element.name}
                 Grade: {getGradeFromIndex(element.grade)}
                 Attempts: {element.numOfAttempts}
+                Date: {day + "-" + month + "-" + year}
               </li>
             );
           });
