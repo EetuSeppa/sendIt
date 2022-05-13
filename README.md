@@ -6,6 +6,7 @@ App for taking your climbing training to the next level
 
 ### Windows  
 [Download node.js](https://nodejs.org/en/download/) 
+ 
 [Download mongodb](https://www.mongodb.com/try/download/community)
 
 Configure mongodb
