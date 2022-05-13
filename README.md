@@ -13,7 +13,7 @@ Configure mongodb
 
 Clone this repository:
 ```bash
-git clone https://github.com/EetuSeppa/sendIt ^ 
+git clone https://github.com/EetuSeppa/sendIt  ^ 
 cd sendIt
 ```
 
