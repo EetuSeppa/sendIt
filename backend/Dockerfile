@@ -11,6 +11,6 @@ COPY . /usr/src/app
 
 EXPOSE 8000 
 
-CMD ["npm", "run", "mongodb://mongo:27017"]
+CMD ["node", "server.js", "mongodb://mongo:27017"]
 
 
