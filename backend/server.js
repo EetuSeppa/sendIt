@@ -45,7 +45,8 @@ app.post('/saveRoute', function (req, res, next) {
             description: req.body.description,
             feet: req.body.feet,
             grade: req.body.grade,
-            holds: req.body.holds
+            holds: req.body.holds,
+            date: new Date()
         });
     });
    res.status(202).send();

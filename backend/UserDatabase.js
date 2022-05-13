@@ -36,7 +36,8 @@ module.exports = {
                     {$push: {
                         climbedRoutes: {
                             "name": info.routeName,
-                            "numOfAttempts": info.numOfAttempts
+                            "numOfAttempts": info.numOfAttempts,
+                            "date": new Date()
                             }
                         }
                     }
@@ -76,6 +77,8 @@ module.exports = {
                             feet: element.feet,
                             grade: element.grade,
                             holds: element.holds,
+                            date: element.date,
+                            dateCompleted: (routeNames.find(route => route.name == element.name)).date,
                             numOfAttempts: (routeNames.find(route => route.name == element.name)).numOfAttempts
                         });
                     });

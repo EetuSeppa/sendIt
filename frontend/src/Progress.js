@@ -77,6 +77,7 @@ class Progress extends React.Component {
   renderBars () {
     let barArr = [];
     let bottomGradesArr = [];
+    let barNumbers = []; 
     let bottom
     let barCount = this.state.maxBar - this.state.minBar;  
     let currentXPosition = 40;
@@ -85,7 +86,6 @@ class Progress extends React.Component {
 
     for (let i = 0; i <= barCount; ++i) {
       height = this.state.diagramBarValues[index] * (Math.floor(580 / this.state.maxValue));
-      console.log(currentXPosition);
       barArr.push (
         <rect fill="red" width={50} x={currentXPosition} 
           y={10 + (580 - height)} 
@@ -97,6 +97,12 @@ class Progress extends React.Component {
       bottomGradesArr.push(
         <text x={currentXPosition + 5} y={580} textLength="40">
           {textToDisplay}
+        </text>
+      )
+
+      bottomGradesArr.push(
+        <text x={currentXPosition + 18} y={615 - height} textLength="40">
+          {this.state.diagramBarValues[index]}
         </text>
       )
 
