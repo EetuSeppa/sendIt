@@ -28,5 +28,5 @@ npm install
 node server.js mongodb://localhost:27017
 ```
 
-Now you can navigate to [localhost:3000](http://localhost:3000) and try the app!
+Now you can navigate to [localhost:3000](http://localhost:3000) and try out the app!
 
