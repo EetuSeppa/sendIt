@@ -6,7 +6,7 @@ const { addRouteToUser } = require('./UserDatabase');
 
 const app = express();
 const PORT = 8000;
-const db = process.argv[2]; //Read db address from command line arguments
+const db = "mongodb://mongo:27017/"; //Read db address from command line arguments
 const dbName = "sendIt";
 
 const dbClient = new MongoClient(db);
@@ -19,90 +19,90 @@ app.post('/addUser', function (req, res, next) {
 });
 
 app.post('/getClimbedRoutes', function (req, res, next) {
-   users.retrieveClimbedRoutes(req.body, dbClient).then((result)=> {
-        res.send(JSON.stringify(result));
-   })
+    users.retrieveClimbedRoutes(req.body, dbClient).then((result)=> {
+	res.send(JSON.stringify(result));
+    })
 });
 
 app.post('/addRouteReview', function (req, res, next) {
     dbClient.connect ((err, client) => {
-        if (err) {
-            console.log(err);
-        }
-        //Adds a climbed route to user element
-        users.addRouteToUser(req.body, dbClient);
+	if (err) {
+	    console.log(err);
+	}
+	//Adds a climbed route to user element
+	users.addRouteToUser(req.body, dbClient);
     })
 });
 
 app.post('/saveRoute', function (req, res, next) {
     dbClient.connect ((err, client) => {
-        if (err) {
-            console.log(err);
-        }
-        const db = client.db(dbName);
-        db.collection("routes").insertOne({
-            name: req.body.name,
-            description: req.body.description,
-            feet: req.body.feet,
-            grade: req.body.grade,
-            holds: req.body.holds
-        });
+	if (err) {
+	    console.log(err);
+	}
+	const db = client.db(dbName);
+	db.collection("routes").insertOne({
+	    name: req.body.name,
+	    description: req.body.description,
+	    feet: req.body.feet,
+	    grade: req.body.grade,
+	    holds: req.body.holds
+	});
     });
-   res.status(202).send();
+    res.status(202).send();
 });
 
 app.get('/getRoutes', function (req, res, next) {
 
     dbClient.connect ((err, client) => {
-        if (err)
-            console.log(err);
-        const db = client.db(dbName);
-        
-        db.collection("routes").find({}).toArray((err, routes) => {
-            let resObj = {
-                routes: []
-            };
+	if (err)
+	    console.log(err);
+	const db = client.db(dbName);
+	
+	db.collection("routes").find({}).toArray((err, routes) => {
+	    let resObj = {
+		routes: []
+	    };
 
-            routes.forEach((element) => {
-                resObj.routes.push({
-                    name: element.name,
-                    description: element.description,
-                    feet: element.feet,
-                    grade: element.grade,
-                    holds: element.holds
-                });
-            });
-            res.status(200).send(JSON.stringify(resObj));
-        });
+	    routes.forEach((element) => {
+		resObj.routes.push({
+		    name: element.name,
+		    description: element.description,
+		    feet: element.feet,
+		    grade: element.grade,
+		    holds: element.holds
+		});
+	    });
+	    res.status(200).send(JSON.stringify(resObj));
+	});
     });
 });
 
 app.post('/filterRoutes', function (req, res, next) {
     let query = {
-        grade: {$gte: req.body.gradeLow, $lte: req.body.gradeHigh},
+	grade: {$gte: req.body.gradeLow, $lte: req.body.gradeHigh},
     };
 
     dbClient.connect ((err, client) => {
-        if (err)
-            console.log(err);
-        const db = client.db(dbName);
-        
-        db.collection("routes").find(query).toArray((err, routes) => {
-            let resObj = {
-                routes: []
-            };
+	if (err)
+	    console.log(err);
+	const db = client.db(dbName);
+	
+	db.collection("routes").find(query).toArray((err, routes) => {
+	    let resObj = {
+		routes: []
+	    };
 
-            routes.forEach((element) => {
-                resObj.routes.push({
-                    name: element.name,
-                    description: element.description,
-                    feet: element.feet,
-                    grade: element.grade,
-                    holds: element.holds
-                });
-            });
-            res.status(200).send(JSON.stringify(resObj));
-        });
+	    routes.forEach((element) => {
+		resObj.routes.push({
+		    name: element.name,
+		    description: element.description,
+		    feet: element.feet,
+		    grade: element.grade,
+		    holds: element.holds
+		});
+	    });
+	    res.status(200).send(JSON.stringify(resObj));
+	});
     });
 
 });

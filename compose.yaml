@@ -1,43 +1,57 @@
+version: "3"
 services:
-  frontend:
-    build: frontend
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
+    networks:
+      - mern-network
+    volumes:
+      - ./client/src:/usr/app/src
+      - ./client/public:/usr/app/public
+    depends_on:
+      - server
+    environment:
+      - REACT_APP_SERVER=http://localhost:5000
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
     stdin_open: true
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
-    container_name: frontend
-    restart: always
+    tty: true
+  
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
     networks:
-      - react-express
+      - mern-network
+    volumes:
+      - ./server/src:/usr/app/src
     depends_on:
-      - backend
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017
+      - CLIENT=http://localhost:3000
+    command: /usr/app/node_modules/.bin/nodemon -L src/index.js
 
-  backend:
-    container_name: backend
-    restart: always
-    build: backend
-    volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
-    depends_on:
-      - mongo
+  db:
+    image: mongo:3.6.19-xenial
+    ports:
+      - 27017:27017
     networks:
-      - express-mongo
-      - react-express
-    expose: 
-      - 8000 
-  mongo:
-    container_name: mongo
-    restart: always
-    image: mongo:4.2.0
+      - mern-network
     volumes:
-      - ./data:/data/db
-    networks:
-      - express-mongo
-    expose:
-      - 27017
+      - mongo-data:/data/db
+
 networks:
-  react-express:
-  express-mongo:
+  mern-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
+
