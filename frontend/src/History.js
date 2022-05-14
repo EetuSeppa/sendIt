@@ -9,9 +9,13 @@ class History extends React.Component {
     
     this.state = {
       retrievedRoutes: null,
+      filteredRoutes: null,
       routeList: null,
       routeView: null
     }
+    this.compareDates = this.compareDates.bind(this);
+    this.filterRoutes = this.filterRoutes.bind(this);
+    this.updateDisplayedRoutes = this.updateDisplayedRoutes.bind(this);
   }
 
   componentDidMount () {
@@ -24,31 +28,61 @@ class History extends React.Component {
           console.log(xhr.response);
 				  let responseObj = JSON.parse(xhr.response);
 				  this.setState({retrievedRoutes: responseObj});
-          let tempRouteList = [];
+          this.updateDisplayedRoutes(this.state.retrievedRoutes.routes);
+    };
+    }
+    xhr.send(JSON.stringify({
+        username: this.props.username,
+        }
+    ));
+  }
+  updateDisplayedRoutes (routes) {
+    let tempRouteList = [];
 
-          this.state.retrievedRoutes.routes.forEach((element, index) => {
+          routes.forEach((element, index) => {
             //Parse date string to year, month and day
             let splitDate = element.dateCompleted.split(/\D+/);
             let year = splitDate[0];
             let month = splitDate[1];
             let day = splitDate[2];
 
-            tempRouteList.push(
-              <li key={index} onClick={() => this.changeToRouteView(element)}>
-                Name: {element.name}
-                Grade: {getGradeFromIndex(element.grade)}
-                Attempts: {element.numOfAttempts}
-                Date: {day + "-" + month + "-" + year}
-              </li>
-            );
-          });
-          this.setState({routeList: tempRouteList});
-        };
-    };
-    xhr.send(JSON.stringify({
-        username: this.props.username,
+        tempRouteList.push(
+          <li key={index} onClick={() => this.changeToRouteView(element)}>
+            Name: {element.name}
+            Grade: {getGradeFromIndex(element.grade)}
+            Attempts: {element.numOfAttempts}
+            Date: {day + "-" + month + "-" + year}
+          </li>
+        );
+      });
+      this.setState({routeList: tempRouteList});
+  };
+
+
+  filterRoutes (info) {
+    let tempRouteList = [];
+
+    this.state.retrievedRoutes.routes.forEach((element, index) => {
+      if (this.compareDates(element, info) &&
+        info.gradeLow <= element.grade &&
+        info.gradeHigh >= element.grade
+      ) {
+        if (info.attempts && info.attempts == element.numOfAttempts) {
+          tempRouteList.push(element);
+        } else if (!info.attempts) {
+          tempRouteList.push(element);
         }
-    ));
+      }
+    });
+    this.updateDisplayedRoutes(tempRouteList);
+  }
+
+  compareDates (route, filter) {
+    let routeDate = new Date(route.dateCompleted);
+    let highDate = new Date(filter.dateHigh);
+    let lowDate = new Date(filter.dateLow);
+
+    return (routeDate <= highDate && routeDate >= lowDate);
   }
 
 	changeToRouteView (route) {
@@ -65,7 +99,7 @@ class History extends React.Component {
 						</ul>
 						<br/>
 						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <HistoryFilter handler={this.retrieveFilteredRoutes}/>: null}
+						{this.state.filterView? <HistoryFilter handler={this.filterRoutes}/>: null}
 					</div>
       );
     } else {

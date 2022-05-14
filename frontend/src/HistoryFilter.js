@@ -9,13 +9,16 @@ class HistoryFilter extends React.Component {
       gradeLow: null,
       gradeHigh: null,
       dateLow: null,
-      dateHigh: null
+      dateHigh: null,
+      attempts: null
     }
     
     this.gradeFromSlider = this.gradeFromSlider.bind(this);
 
     this.lowDateChangeHandler = this.lowDateChangeHandler.bind(this);
     this.highDateChangeHandler = this.highDateChangeHandler.bind(this);
+    this.attemptsChangeHandler = this.attemptsChangeHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
   }
 
   gradeFromSlider (lowGrade, highGrade) {
@@ -33,6 +36,23 @@ class HistoryFilter extends React.Component {
     this.setState({dateHigh: event.target.value});
   }
 
+  submitHandler (event) {
+    event.preventDefault();
+    let filterData = {
+        dateLow: this.state.dateLow,
+        dateHigh: this.state.dateHigh,
+        gradeLow: this.state.gradeLow,
+        gradeHigh: this.state.gradeHigh,
+        attempts: this.state.attempts
+      } 
+
+      this.props.handler(filterData);
+    }
+
+  attemptsChangeHandler(event) {
+    this.setState({attempts: event.target.value});
+  }
+
   render () {
       return (
           <div>
@@ -40,7 +60,7 @@ class HistoryFilter extends React.Component {
                     <GradeFilterSlider gradeHandler={this.gradeFromSlider}/>
                   <label>
                     Number of tries:
-                    <input type="range" min="1" max="11"/>
+                    <input onChange={this.attemptsChangeHandler} type="range" min="1" max="11"/>
                     </label>
                     <br/>
                   <label>
