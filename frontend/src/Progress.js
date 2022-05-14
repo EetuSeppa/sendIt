@@ -1,5 +1,6 @@
 import React from 'react';
 import getGradeFromIndex from './GradeFromIndex';
+import Back from './Back';
 
 class Progress extends React.Component {
   constructor (props) {
@@ -143,6 +144,7 @@ class Progress extends React.Component {
 render() {
       return (
         <div class="overflow-x-auto p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+	    			<Back handler={this.props.handler}/>
           <svg width={this.state.svgWidth} height="600">
             {this.state.sideLines}
             {this.state.sideNumbers}

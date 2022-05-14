@@ -59,6 +59,7 @@ class InsertRouteInfo extends React.Component {
       return (
           <div>
             <div>
+                <button onClick={this.props.close}>Return</button>
                 <button onClick={() => this.changeGrade('-')}>-</button>
                 <h1>{this.getGradeFromIndex(this.state.gradeNum)}</h1>
                 <button onClick={() => this.changeGrade('+')}>+</button>

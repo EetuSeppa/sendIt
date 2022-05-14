@@ -2,6 +2,7 @@ import React from 'react';
 import HistoryFilter from './HistoryFilter';
 import getGradeFromIndex from './GradeFromIndex';
 import RouteView from './RouteView';
+import Back from './Back';
 
 class History extends React.Component {
   constructor (props) {
@@ -11,11 +12,16 @@ class History extends React.Component {
       retrievedRoutes: null,
       filteredRoutes: null,
       routeList: null,
-      routeView: null
+      routeView: null,
+			filterKey: 0,
+      filterView: false
     }
     this.compareDates = this.compareDates.bind(this);
     this.filterRoutes = this.filterRoutes.bind(this);
     this.updateDisplayedRoutes = this.updateDisplayedRoutes.bind(this);
+		this.resetFilter = this.resetFilter.bind(this);
+    this.closeRouteView = this.closeRouteView.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
   }
 
   componentDidMount () {
@@ -36,6 +42,16 @@ class History extends React.Component {
         }
     ));
   }
+
+  resetFilter () {
+		let currentKey = this.state.filterKey;
+		this.setState({filterKey: currentKey + 1});
+  }
+
+  closeFilter() {
+    this.setState({filterView: false});
+  }
+
   updateDisplayedRoutes (routes) {
     let tempRouteList = [];
 
@@ -89,22 +105,27 @@ class History extends React.Component {
 		this.setState({routeView: route});
 	}
 
+  closeRouteView () {
+    this.setState({routeView: null});
+  }
+
 
   render() {
     if (!this.state.routeView) {
       return (
         <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+	    			<Back handler={this.props.handler}/>
 						<ul>
 							{this.state.routeList}
 						</ul>
 						<br/>
 						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <HistoryFilter handler={this.filterRoutes}/>: null}
+						{this.state.filterView? <HistoryFilter close={this.closeFilter} key={this.state.filterKey} resetFilter={this.resetFilter} handler={this.filterRoutes}/>: null}
 					</div>
       );
     } else {
       return (
-					<RouteView username={this.props.username} data={this.state.routeView} />
+					<RouteView close={this.closeRouteView} username={this.props.username} data={this.state.routeView} />
       );
     }
   }

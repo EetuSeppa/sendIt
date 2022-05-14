@@ -44,11 +44,15 @@ class BrowseFilter extends React.Component {
     orderChange (event) {
         this.setState({order: event.target.value});
     }
+    
 
   render () {
       return (
           <div>
               <form onSubmit={this.submitHandler}>
+                    <button onClick={this.props.close}>Back</button>
+                    <br/>
+                    <button onClick={this.props.resetFilter}>Reset</button>
                     {this.state.submitClicked? null : <GradeFilterSlider gradeHandler={this.gradeFromSlider}/>}
                   <label>
                     Sort by:

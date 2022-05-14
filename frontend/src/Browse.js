@@ -11,11 +11,15 @@ class Browse extends React.Component {
 			retrievedRoutes: null,
 			routeView: null,
 			filterView: false,
-			unsortedRoutes: []
+			unsortedRoutes: [],
+			filterKey: 0
 		}
 		this.retrieveAllRoutes = this.retrieveAllRoutes.bind(this);
 		this.changeToRouteView = this.changeToRouteView.bind(this);
 		this.retrieveFilteredRoutes = this.retrieveFilteredRoutes.bind(this);
+		this.resetFilter = this.resetFilter.bind(this);
+		this.closeRouteView = this.closeRouteView.bind(this);
+		this.closeFilter = this.closeFilter.bind(this);
 	}
 
 	changeToRouteView (route) {
@@ -39,6 +43,19 @@ class Browse extends React.Component {
 
 	componentDidMount () {
 		this.retrieveAllRoutes();
+	}
+
+	resetFilter () {
+		let currentKey = this.state.filterKey;
+		this.setState({filterKey: currentKey + 1});
+	}
+
+	closeFilter () {
+		this.setState({filterView: false});
+	}
+
+	closeRouteView () {
+		this.setState({routeView: null});
 	}
 
 	retrieveFilteredRoutes (filterData) {
@@ -97,12 +114,12 @@ class Browse extends React.Component {
 						</ul>
 						<br/>
 						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <BrowseFilter handler={this.retrieveFilteredRoutes}/>: null}
+						{this.state.filterView? <BrowseFilter close={this.closeFilter} resetFilter={this.resetFilter} key={this.state.filterKey} handler={this.retrieveFilteredRoutes}/>: null}
 					</div>
 					);
 				} else {
 					return (
-					<RouteView username={this.props.username} data={this.state.routeView} />
+					<RouteView close={this.closeRouteView} username={this.props.username} data={this.state.routeView} />
 					);
 				}
 		} else {

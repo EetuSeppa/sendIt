@@ -57,7 +57,10 @@ class HistoryFilter extends React.Component {
       return (
           <div>
               <form onSubmit={this.submitHandler}>
-                    <GradeFilterSlider gradeHandler={this.gradeFromSlider}/>
+                    <button onClick={this.props.close}>Back</button>
+                    <br/>
+                    <button onClick={this.props.resetFilter}>Reset filters</button>
+                    <GradeFilterSlider resetFilter={this.props.resetFilter} gradeHandler={this.gradeFromSlider}/>
                   <label>
                     Number of tries:
                     <input onChange={this.attemptsChangeHandler} type="range" min="1" max="11"/>

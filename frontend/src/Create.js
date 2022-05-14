@@ -1,6 +1,7 @@
 import React from 'react';
 import Hold from './Hold';
 import InsertRouteInfo from './InsertRouteInfo';
+import Back from './Back';
 
 class Create extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Create extends React.Component {
       this.addHold = this.addHold.bind(this);
       this.doneButtonClicked = this.doneButtonClicked.bind(this);
       this.submitRoute = this.submitRoute.bind(this);
+      this.closeInformationInsert = this.closeInformationInsert.bind(this);
   }
 
   submitRoute (userInput) {
@@ -46,6 +48,10 @@ class Create extends React.Component {
     })
 
     return holds;
+  }
+
+  closeInformationInsert () {
+    this.setState({displayInfoInsert: false});
   }
 
   addHold (holdX, holdY, holdHeight, holdWidth, holdId) {
@@ -93,8 +99,9 @@ class Create extends React.Component {
           <button onClick={() => this.changeHoldType("Top")}>Top</button>
           <button onClick={() => this.changeHoldType("Feet")}>Feet</button>
           <button onClick={this.doneButtonClicked}>Done</button>
+	    	  <Back handler={this.props.handler}/>
         </div>
-        {this.state.displayInfoInsert? <InsertRouteInfo handler={this.submitRoute}/> : null}
+        {this.state.displayInfoInsert? <InsertRouteInfo close={this.closeInformationInsert} handler={this.submitRoute}/> : null}
       </div>
     );
   }

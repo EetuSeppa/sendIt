@@ -50,6 +50,8 @@ class RouteView extends React.Component {
                 <h2>{this.props.data.name}</h2>
                 <h2>{getGradeFromIndex(this.props.data.grade)}</h2>
                 <br/>
+                <button onClick={this.props.close}>Back</button>
+                <br/>
                 <button onClick={this.routeCompleted}>Mark as sent</button>
                 </div>
             );
