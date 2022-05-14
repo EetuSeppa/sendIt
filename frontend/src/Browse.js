@@ -3,6 +3,7 @@ import Back from './Back';
 import RouteView from './RouteView';
 import BrowseFilter from './BrowseFilter';
 import getGradeFromIndex from './GradeFromIndex'; 
+import RouteOverview from './RouteOverview';
 
 class Browse extends React.Component {
 	constructor(props) {
@@ -99,6 +100,7 @@ class Browse extends React.Component {
 			this.state.retrievedRoutes.routes.forEach((element, i) => {
 				routeList.push(
 					<li key={i} onClick={() => this.changeToRouteView(element)}> 
+						<RouteOverview holds={element.holds}/>
 						<h2>Name: {element.name}</h2>
 						<h2>Grade: {getGradeFromIndex(element.grade)}</h2>
 					</li>

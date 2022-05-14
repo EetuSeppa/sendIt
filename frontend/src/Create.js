@@ -33,6 +33,16 @@ class Create extends React.Component {
     //Add error handling based on status code
   }
 
+  isHoldVisible (x, y, type) {
+    if (this.props.selectedHolds) {
+      let found = this.props.selectedHolds.find(elem => elem.x === x && elem.y === y);
+      if (found) {
+        return (found)
+      }
+    }
+    return null;
+  }
+
   loadHolds () {
     const obj = require('./Wall.json');
     let holds = [];
@@ -43,6 +53,7 @@ class Create extends React.Component {
                        handler={this.addHold}
                        id={index}
                        key={index}
+                       visible={this.isHoldVisible(elem.x, elem.y)}
                   />
                 );
     })
@@ -54,7 +65,7 @@ class Create extends React.Component {
     this.setState({displayInfoInsert: false});
   }
 
-  addHold (holdX, holdY, holdHeight, holdWidth, holdId) {
+  addHold (holdX, holdY, holdHeight, holdWidth, holdId, holdType) {
     let previouslyAdded = this.state.selectedHolds.get(holdId);
     if (previouslyAdded != undefined) {
       if (this.state.holdType == previouslyAdded.type) {
@@ -68,7 +79,8 @@ class Create extends React.Component {
       y: holdY,
       h: holdHeight,
       w: holdWidth,
-      type: this.state.holdType
+      //Use holdtype from argument if not null
+      type: (holdType? holdType: this.state.holdType)
     };
     this.state.selectedHolds.set(holdId, obj);
   }
@@ -99,7 +111,7 @@ class Create extends React.Component {
           <button onClick={() => this.changeHoldType("Top")}>Top</button>
           <button onClick={() => this.changeHoldType("Feet")}>Feet</button>
           <button onClick={this.doneButtonClicked}>Done</button>
-	    	  <Back handler={this.props.handler}/>
+          <button onClick={this.props.close}>Back</button>
         </div>
         {this.state.displayInfoInsert? <InsertRouteInfo close={this.closeInformationInsert} handler={this.submitRoute}/> : null}
       </div>

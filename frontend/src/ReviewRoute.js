@@ -105,6 +105,7 @@ class ReviewRoute extends React.Component {
     render () {
         return (
 			<div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+                <button onClick={this.props.close}>Back</button>
                 <h2>Name:  {this.props.routeInfo.name}</h2>
                 <h2>Grade:  {getGradeFromIndex(this.props.routeInfo.grade)}</h2>
                 <form onSubmit={this.sendReview}>

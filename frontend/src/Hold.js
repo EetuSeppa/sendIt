@@ -16,6 +16,17 @@ class Hold extends React.Component {
         this.setState({show: !currentState});
     }
 
+    componentDidMount () {
+        if (this.props.visible) {
+            this.setState({show: true});
+            this.setState({type: this.props.visible.type});
+            this.props.handler(this.props.x, this.props.y,
+                           this.props.h, this.props.w,
+                           this.props.id, this.props.visible.type
+            );
+        }
+    }
+
     clickHandler () {
         if (!this.state.show) {
             this.changeShownState();
@@ -25,7 +36,7 @@ class Hold extends React.Component {
             
         this.props.handler(this.props.x, this.props.y,
                            this.props.h, this.props.w,
-                           this.props.id
+                           this.props.id, null
                            );
         this.setState({type: this.props.type});
     }

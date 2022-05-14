@@ -3,6 +3,7 @@ import HistoryFilter from './HistoryFilter';
 import getGradeFromIndex from './GradeFromIndex';
 import RouteView from './RouteView';
 import Back from './Back';
+import RouteOverview from './RouteOverview';
 
 class History extends React.Component {
   constructor (props) {
@@ -64,6 +65,7 @@ class History extends React.Component {
 
         tempRouteList.push(
           <li key={index} onClick={() => this.changeToRouteView(element)}>
+            <RouteOverview holds={element.holds}/>
             Name: {element.name}
             Grade: {getGradeFromIndex(element.grade)}
             Attempts: {element.numOfAttempts}

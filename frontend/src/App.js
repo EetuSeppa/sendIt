@@ -19,6 +19,7 @@ class App extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.usernameHandler = this.usernameHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.closeCreateView = this.closeCreateView.bind(this);
   }
 
   changeHandler (text) {
@@ -28,6 +29,10 @@ class App extends React.Component {
 
   usernameHandler (event) {
     this.setState({username: event.target.value});
+  }
+
+  closeCreateView () {
+    this.setState({page: "home"});
   }
 
   submitHandler (event) {
@@ -80,7 +85,7 @@ class App extends React.Component {
 	  break;
 
       case "create":
-          view = (<Create username={this.state.username} handler={this.changeHandler}/>);
+          view = (<Create close={this.closeCreateView} username={this.state.username} handler={this.changeHandler}/>);
 	  break;
 
       case "progress":
