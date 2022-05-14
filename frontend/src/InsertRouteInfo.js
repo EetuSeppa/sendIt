@@ -50,9 +50,11 @@ class InsertRouteInfo extends React.Component {
         name: this.state.name,
         description: this.state.description,
         feet: this.state.feetType,
-        grade: this.state.gradeNum
+        grade: this.state.gradeNum,
+        username: this.props.username
     }
     this.props.handler(inputData);
+    this.props.routeCreated();
   }
 
   render () {

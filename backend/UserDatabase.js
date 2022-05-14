@@ -79,7 +79,8 @@ module.exports = {
                             holds: element.holds,
                             date: element.date,
                             dateCompleted: (routeNames.find(route => route.name == element.name)).date,
-                            numOfAttempts: (routeNames.find(route => route.name == element.name)).numOfAttempts
+                            numOfAttempts: (routeNames.find(route => route.name == element.name)).numOfAttempts,
+                            username: element.username
                         });
                     });
                     if (resObj !== undefined)

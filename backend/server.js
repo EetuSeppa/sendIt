@@ -46,7 +46,8 @@ app.post('/saveRoute', function (req, res, next) {
             feet: req.body.feet,
             grade: req.body.grade,
             holds: req.body.holds,
-            date: new Date()
+            date: new Date(),
+            username: req.body.username
         });
     });
    res.status(202).send();
@@ -70,7 +71,9 @@ app.get('/getRoutes', function (req, res, next) {
                     description: element.description,
                     feet: element.feet,
                     grade: element.grade,
-                    holds: element.holds
+                    holds: element.holds,
+                    username: element.username,
+                    date: element.date
                 });
             });
             res.status(200).send(JSON.stringify(resObj));

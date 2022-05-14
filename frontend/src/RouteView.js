@@ -76,11 +76,11 @@ class RouteView extends React.Component {
             );
         } else if (this.state.editView) {
            return (
-               <Create close={this.closeEditView} selectedHolds={this.props.data.holds} />
+               <Create username={this.props.username} close={this.closeEditView} selectedHolds={this.props.data.holds} />
            ) 
         } else {
             return (
-                <ReviewRoute close={this.closeReview} routeName={this.props.data.name} 
+                <ReviewRoute reviewSent={()=>this.props.close()} close={this.closeReview} routeName={this.props.data.name} 
                              username={this.props.username} 
                              routeInfo={this.props.data}
                 />

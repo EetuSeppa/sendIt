@@ -9,7 +9,8 @@ class ReviewRoute extends React.Component {
             numOfAttempts: 1,
             gradeNum: 5,
             review: 1,
-            comment: ""
+            comment: "",
+            dateString: null
         }
 
         this.incNumOfAttempts = this.incNumOfAttempts.bind(this);
@@ -47,7 +48,8 @@ class ReviewRoute extends React.Component {
             routeName: this.props.routeName
             }
         ));
-    
+        
+        this.props.reviewSent();
     }
 
     commentChange (event) {
@@ -100,6 +102,15 @@ class ReviewRoute extends React.Component {
         }
     }
 
+    componentDidMount () {
+        let splitDate = this.props.routeInfo.date.split(/\D+/);
+        let year = splitDate[0];
+        let month = splitDate[1];
+        let day = splitDate[2];
+
+        this.setState({dateString: day + '.' + month + '.' + year});
+    }
+
 
 
     render () {
@@ -108,6 +119,7 @@ class ReviewRoute extends React.Component {
                 <button onClick={this.props.close}>Back</button>
                 <h2>Name:  {this.props.routeInfo.name}</h2>
                 <h2>Grade:  {getGradeFromIndex(this.props.routeInfo.grade)}</h2>
+                <h2>Date: {this.state.dateString}</h2>
                 <form onSubmit={this.sendReview}>
 
                     <label>

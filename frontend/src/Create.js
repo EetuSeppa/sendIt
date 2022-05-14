@@ -29,7 +29,6 @@ class Create extends React.Component {
     xhr.open("POST", "http://localhost:8000/saveRoute", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(userInput));
-
     //Add error handling based on status code
   }
 
@@ -113,7 +112,7 @@ class Create extends React.Component {
           <button onClick={this.doneButtonClicked}>Done</button>
           <button onClick={this.props.close}>Back</button>
         </div>
-        {this.state.displayInfoInsert? <InsertRouteInfo close={this.closeInformationInsert} handler={this.submitRoute}/> : null}
+        {this.state.displayInfoInsert? <InsertRouteInfo username={this.props.username} routeCreated={()=>this.props.close()} close={this.closeInformationInsert} handler={this.submitRoute}/> : null}
       </div>
     );
   }

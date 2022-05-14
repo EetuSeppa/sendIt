@@ -103,6 +103,7 @@ class Browse extends React.Component {
 						<RouteOverview holds={element.holds}/>
 						<h2>Name: {element.name}</h2>
 						<h2>Grade: {getGradeFromIndex(element.grade)}</h2>
+						<h2>Created by: {element.username}</h2>
 					</li>
 				);
 			});
