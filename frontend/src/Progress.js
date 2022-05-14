@@ -15,7 +15,8 @@ class Progress extends React.Component {
       sideNumbers: null,
       bars: null,
       bottomGrades: null,
-      svgWidth: 600
+      svgWidth: 600,
+      routesFound: true
     }
     this.calculateBarValues = this.calculateBarValues.bind(this);
   }
@@ -126,14 +127,18 @@ class Progress extends React.Component {
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
+      if (xhr.readyState === 4) {
+        if (xhr.response) {
 				  let responseObj = JSON.parse(xhr.response);
 				  this.setState({retrievedRoutes: responseObj.routes});
           this.calculateBarValues(this.state.retrievedRoutes);
           this.renderSideNumbers();
           this.renderSideLines();
           this.renderBars();
-        };
+        } else {
+          this.setState({routesFound: false});
+        }
+      };
     };
     xhr.send(JSON.stringify({
         username: this.props.username,
@@ -142,17 +147,28 @@ class Progress extends React.Component {
   }
 
 render() {
-      return (
-        <div class="overflow-x-auto p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+      if (this.state.routesFound) {
+        return (
+          <div class="overflow-x-auto p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
 	    			<Back handler={this.props.handler}/>
-          <svg width={this.state.svgWidth} height="600">
-            {this.state.sideLines}
-            {this.state.sideNumbers}
-            {this.state.bars}
-            {this.state.bottomGrades}
-          </svg>
-        </div>
-      )
+            <svg width={this.state.svgWidth} height="600">
+              {this.state.sideLines}
+              {this.state.sideNumbers}
+              {this.state.bars}
+              {this.state.bottomGrades}
+            </svg>
+          </div>
+        )
+      } else {
+        return (
+          <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+	    			<Back handler={this.props.handler}/>
+            <h2>You haven't marked any routes as climbed.
+              Maybe try finding something to climb by using the browse feature?
+            </h2>
+          </div>
+        )
+      }
   }
 }
 

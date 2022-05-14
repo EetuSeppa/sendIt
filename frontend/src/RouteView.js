@@ -69,7 +69,9 @@ class RouteView extends React.Component {
                 <br/>
                 <button onClick={this.props.close}>Back</button>
                 <br/>
-                <button onClick={this.routeCompleted}>Mark as sent</button>
+                {this.props.completed? 
+                    null:
+                    <button onClick={this.routeCompleted}>Mark as sent</button>}
                 <br/>
                 <button onClick={this.openEditView}>Edit</button>
                 </div>

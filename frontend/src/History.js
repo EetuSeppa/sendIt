@@ -32,10 +32,13 @@ class History extends React.Component {
 
     xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
-          console.log(xhr.response);
-				  let responseObj = JSON.parse(xhr.response);
-				  this.setState({retrievedRoutes: responseObj});
-          this.updateDisplayedRoutes(this.state.retrievedRoutes.routes);
+          if (xhr.response) {
+				    let responseObj = JSON.parse(xhr.response);
+				    this.setState({retrievedRoutes: responseObj});
+            this.updateDisplayedRoutes(this.state.retrievedRoutes.routes);
+          } else {
+            this.setState({routeList: null});
+          }
     };
     }
     xhr.send(JSON.stringify({
@@ -113,7 +116,7 @@ class History extends React.Component {
 
 
   render() {
-    if (!this.state.routeView) {
+    if (!this.state.routeView && this.state.routeList) {
       return (
         <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
 	    			<Back handler={this.props.handler}/>
@@ -125,9 +128,18 @@ class History extends React.Component {
 						{this.state.filterView? <HistoryFilter close={this.closeFilter} key={this.state.filterKey} resetFilter={this.resetFilter} handler={this.filterRoutes}/>: null}
 					</div>
       );
+    } else if (!this.state.routeList) {
+      return (
+        <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+	    		<Back handler={this.props.handler}/>
+          <h2>You haven't marked any routes as climbed.
+            Maybe try finding something to climb by using the browse feature?
+          </h2>
+        </div>
+      )
     } else {
       return (
-					<RouteView close={this.closeRouteView} username={this.props.username} data={this.state.routeView} />
+					<RouteView completed={true} close={this.closeRouteView} username={this.props.username} data={this.state.routeView} />
       );
     }
   }

@@ -56,33 +56,40 @@ module.exports = {
                 let resObj = {
                     routes: []
                 };
+                let query;
 
                 const db = client.db(dbName);
-                routeNames.forEach((element) => {
-                    queryArr.push({name: element.name});
-                });
+                if (routeNames.length > 0) {
+                    routeNames.forEach((element) => {
+                        queryArr.push({name: element.name});
+                    });
 
-                let query = {$or: queryArr};
+                    query = {$or: queryArr};
+                } else {
+                    resolve(null);
+                    return null;
+                }
 
                 //Find route information
                 db.collection("routes").find(query).toArray((err, routes) => {
                     if (err) {
                         console.log(err);
                     }
-
-                    routes.forEach((element) => {
-                        resObj.routes.push({
-                            name: element.name,
-                            description: element.description,
-                            feet: element.feet,
-                            grade: element.grade,
-                            holds: element.holds,
-                            date: element.date,
-                            dateCompleted: (routeNames.find(route => route.name == element.name)).date,
-                            numOfAttempts: (routeNames.find(route => route.name == element.name)).numOfAttempts,
-                            username: element.username
+                    if (routes.length > 0) {
+                        routes.forEach((element) => {
+                            resObj.routes.push({
+                                name: element.name,
+                                description: element.description,
+                                feet: element.feet,
+                                grade: element.grade,
+                                holds: element.holds,
+                                date: element.date,
+                                dateCompleted: (routeNames.find(route => route.name == element.name)).date,
+                                numOfAttempts: (routeNames.find(route => route.name == element.name)).numOfAttempts,
+                                username: element.username
                         });
                     });
+                    }
                     if (resObj !== undefined)
                         resolve(resObj);
                 });
