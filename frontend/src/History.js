@@ -67,12 +67,18 @@ class History extends React.Component {
             let day = splitDate[2];
 
         tempRouteList.push(
-          <li key={index} onClick={() => this.changeToRouteView(element)}>
+          <li class="mb-5 flex shadow-xl rounded-xl bg-red-400 border-solid border-1" 
+              key={index} onClick={() => this.changeToRouteView(element)}
+            >
             <RouteOverview holds={element.holds}/>
-            Name: {element.name}
-            Grade: {getGradeFromIndex(element.grade)}
-            Attempts: {element.numOfAttempts}
-            Date: {day + "-" + month + "-" + year}
+            <div class="float-left mr-6">
+              <h2 class="display-block">Name: {element.name}</h2>
+              <h2 class="display-block">Grade: {getGradeFromIndex(element.grade)}</h2>
+            </div>
+            <div class="float-right pr-5">
+              <h2 class="display-block">Attempts: {element.numOfAttempts}</h2>
+              <h2 class="display-block">Date: {day + "-" + month + "-" + year}</h2>
+            </div>
           </li>
         );
       });
@@ -118,14 +124,14 @@ class History extends React.Component {
   render() {
     if (!this.state.routeView && this.state.routeList) {
       return (
-        <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+        <div class="relative overflow-scroll h-screen pr-6 pl-6 max-w-sm mx-auto bg-red-300 rounded-xl">
 	    			<Back handler={this.props.handler}/>
+						{this.state.filterView? <HistoryFilter close={this.closeFilter} key={this.state.filterKey} resetFilter={this.resetFilter} handler={this.filterRoutes}/>: null}
 						<ul>
 							{this.state.routeList}
 						</ul>
 						<br/>
-						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <HistoryFilter close={this.closeFilter} key={this.state.filterKey} resetFilter={this.resetFilter} handler={this.filterRoutes}/>: null}
+						<button class="shadow-xl p-2 bg-red-300 sticky bottom-5 float-right rounded-xl" onClick={()=>this.setState({filterView: true})}>Filter</button>
 					</div>
       );
     } else if (!this.state.routeList) {

@@ -48,15 +48,18 @@ class BrowseFilter extends React.Component {
 
   render () {
       return (
-          <div>
+          <div class="p-6 shadow backdrop-blur-sm h-1/2 w-full sticky top-10">
               <form onSubmit={this.submitHandler}>
-                    <button onClick={this.props.close}>Back</button>
+                    <button class="relative p-2 border-r-2 rounded border-b-2 float-left" onClick={this.props.close}>Back</button>
+                    <button class="mr-10 border-b-2 rounded border-l-2 p-2 relative float-right" onClick={this.props.resetFilter}>Reset</button>
+                    <h1 class="text-center">Filter</h1>
                     <br/>
-                    <button onClick={this.props.resetFilter}>Reset</button>
+                    <h2 class="pt-5">Grades:</h2>
                     {this.state.submitClicked? null : <GradeFilterSlider gradeHandler={this.gradeFromSlider}/>}
-                  <label>
+                    <h2 class="w-min p-2 rounded border-b-2 border-r-2 border-t-2">Sort: </h2>
+                  <label class="">
                     Sort by:
-                    <select value={this.state.sortBy} onChange={this.sortByChange} >
+                    <select class="mt-5" value={this.state.sortBy} onChange={this.sortByChange} >
                         <option value="Grade">Grade</option>
                         <option value="Alphabetical">Alphabetical</option>
                     </select>
@@ -64,13 +67,13 @@ class BrowseFilter extends React.Component {
                     <br/>
                   <label>
                     Order by:
-                    <select value={this.state.order} onChange={this.orderChange} >
+                    <select class="mt-3" value={this.state.order} onChange={this.orderChange} >
                         <option value="Ascending">Ascending</option>
                         <option value="Descending">Descending</option>
                     </select>
                     </label>
                     <br/>
-                    <input type="submit" value="Apply filter"/>
+                    <input class="border-2 p-2 rounded absolute bottom-5 right-10" type="submit" value="Apply"/>
               </form>
           </div>
       )

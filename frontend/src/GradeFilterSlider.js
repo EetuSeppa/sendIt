@@ -128,7 +128,7 @@ class GradeFilterSlider extends React.Component {
     render () {
 
         return (
-            <svg width="100" height="60"
+            <svg class="block" width="100" height="60"
                     onMouseMove={this.mousePosition}
                 >
                 <circle 
@@ -137,8 +137,8 @@ class GradeFilterSlider extends React.Component {
                     fill-opacity="1" stroke="red"
                     fill="red"
                     stroke-width="4"
-                    onMouseDown={this.min_dragStart}
-                    onMouseUp={this.min_dragEnd}
+                    onPointerDown={this.min_dragStart}
+                    onPointerUp={this.min_dragEnd}
                 />
                 <text x={this.min_determineSliderPosition() - 10} y="20">
                     {this.min_getGradeFromPosition()}
@@ -150,8 +150,8 @@ class GradeFilterSlider extends React.Component {
                     fill-opacity="1" stroke="red" 
                     fill="red"
                     stroke-width="4"
-                    onMouseDown={this.max_dragStart}
-                    onMouseUp={this.max_dragEnd}
+                    onPointerDown={this.max_dragStart}
+                    onPointerUp={this.max_dragEnd}
                 />
                 <text x={this.max_determineSliderPosition() - 10} y="20">
                     {this.max_getGradeFromPosition()}

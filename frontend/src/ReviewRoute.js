@@ -103,12 +103,16 @@ class ReviewRoute extends React.Component {
     }
 
     componentDidMount () {
-        let splitDate = this.props.routeInfo.date.split(/\D+/);
-        let year = splitDate[0];
-        let month = splitDate[1];
-        let day = splitDate[2];
+        if (this.props.routeInfo.date) {
+            let splitDate = this.props.routeInfo.date.split(/\D+/);
+            let year = splitDate[0];
+            let month = splitDate[1];
+            let day = splitDate[2];
+            this.setState({dateString: day + '.' + month + '.' + year});
+        } else {
+            this.setState({dateString: ""});
+        }
 
-        this.setState({dateString: day + '.' + month + '.' + year});
     }
 
 

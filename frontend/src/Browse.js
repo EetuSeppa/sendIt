@@ -99,25 +99,26 @@ class Browse extends React.Component {
 			let routeList = [];
 			this.state.retrievedRoutes.routes.forEach((element, i) => {
 				routeList.push(
-					<li key={i} onClick={() => this.changeToRouteView(element)}> 
+					<li class="flex shadow-xl rounded-xl bg-red-400 border-solid border-1" key={i} onClick={() => this.changeToRouteView(element)}> 
 						<RouteOverview holds={element.holds}/>
-						<h2>Name: {element.name}</h2>
-						<h2>Grade: {getGradeFromIndex(element.grade)}</h2>
-						<h2>Created by: {element.username}</h2>
+						<div class="float-right">
+							<h2>Name: {element.name}</h2>
+							<h2>Grade: {getGradeFromIndex(element.grade)}</h2>
+							<h2>Created by: {element.username}</h2>
+						</div>
 					</li>
 				);
 			});
 
 				if (!this.state.routeView) {
 					return (
-					<div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+					<div class="relative overflow-scroll h-screen pr-6 pl-6 max-w-sm mx-auto bg-red-300 rounded-xl">
 	    				<Back handler={this.props.handler}/>
-						<ul>
+						{this.state.filterView? <BrowseFilter close={this.closeFilter} resetFilter={this.resetFilter} key={this.state.filterKey} handler={this.retrieveFilteredRoutes}/>: null}
+						<ul class="mt-5 space-y-3">
 							{routeList}
 						</ul>
-						<br/>
-						<button onClick={()=>this.setState({filterView: true})}>Filter</button>
-						{this.state.filterView? <BrowseFilter close={this.closeFilter} resetFilter={this.resetFilter} key={this.state.filterKey} handler={this.retrieveFilteredRoutes}/>: null}
+						<button class="shadow-xl p-2 bg-red-300 sticky bottom-5 float-right rounded-xl" onClick={()=>this.setState({filterView: true})}>Filter</button>
 					</div>
 					);
 				} else {

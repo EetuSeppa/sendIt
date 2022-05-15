@@ -55,25 +55,29 @@ class HistoryFilter extends React.Component {
 
   render () {
       return (
-          <div>
+          <div class="p-6 shadow backdrop-blur-sm h-1/2 w-full sticky top-10">
               <form onSubmit={this.submitHandler}>
-                    <button onClick={this.props.close}>Back</button>
+                    <button class="relative p-2 border-r-2 rounded border-b-2 float-left" onClick={this.props.close}>Back</button>
+                    <button class="mr-5 border-b-2 rounded border-l-2 p-2 relative float-right" onClick={this.props.resetFilter}>Reset filters</button>
                     <br/>
-                    <button onClick={this.props.resetFilter}>Reset filters</button>
+                    <br/>
+                    <h2 class="mt-3">Grade</h2>
                     <GradeFilterSlider resetFilter={this.props.resetFilter} gradeHandler={this.gradeFromSlider}/>
                   <label>
-                    Number of tries:
+                    <h2 class="mt-3">Number of tries:</h2>
                     <input onChange={this.attemptsChangeHandler} type="range" min="1" max="11"/>
                     </label>
                     <br/>
                   <label>
                     Date:
-                    <input onChange={this.lowDateChangeHandler} type="date" id="start"/>
-                    -
-                    <input onChange={this.highDateChangeHandler} type="date" id="end"/>
                     <br/>
+                    <div class="flex">
+                      <input class="display:inline" onChange={this.lowDateChangeHandler} type="date" id="start"/>
+                      <h2 class="p-1">-</h2>
+                      <input class="display:inline" onChange={this.highDateChangeHandler} type="date" id="end"/>
+                    </div>
                   </label>
-                  <input type="submit" value="Apply filter"/>
+                  <input class="border-2 p-2 rounded absolute bottom-5 right-10"  type="submit" value="Apply filter"/>
               </form>
           </div>
       );

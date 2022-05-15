@@ -23,7 +23,6 @@ class App extends React.Component {
   }
 
   changeHandler (text) {
-    console.log(text);
     this.setState({page: text})  
   }
 
