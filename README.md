@@ -7,9 +7,7 @@ App for taking your climbing training to the next level
 ### * Windows  
 [Download node.js](https://nodejs.org/en/download/) 
  
-[Download mongodb](https://www.mongodb.com/try/download/community)
-
-Configure mongodb
+Download and launch mongodb using the official [Mongodb instructions](https://www.mongodb.com/try/download/community)
 
 Clone this repository and launch frontend:
 ```bash
@@ -36,31 +34,38 @@ Now you can navigate to [localhost:3000](http://localhost:3000) and try out the 
 xcode-select --install # Required for brew, also usefull for developers
 ```
 
-Install brew using the official [Homebrew installation instructions](https://brew.sh/#install) 
-
-Install mongodb tools:
+Install brew:
 ```bash
-brew tap mongodb/brew \
-brew update \
-brew install mongodb-community@4.4
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ``` 
 
-Configure mongodb  
+Install and launch mongodb:
+```bash
+brew tap mongodb/brew
+brew update
+brew install mongodb-community@5.0
+brew services start mongodb-community@5.0
+``` 
+
+Install nodejs:
+```bash
+brew install node
+``` 
 
 Clone this repository and launch frontend:
 ```bash
-git clone https://github.com/EetuSeppa/sendIt \ # Clone this repository
-cd sendIt\frontend \ # Navigate to frontend
-npm install \ # Install dependencies
-npm start # Launch frontend
+git clone https://github.com/EetuSeppa/sendIt
+cd sendIt/frontend
+npm install 
+npm start
 ``` 
 
 Open a new terminal window and navigate to the project source  
 
 Then install and launch backend:
 ```bash
-cd backend \
-npm install \
+cd backend
+npm install
 node server.js mongodb://localhost:27017
 ```
 
