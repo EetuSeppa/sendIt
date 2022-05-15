@@ -38,11 +38,12 @@ xcode-select --install # Required for brew, also usefull for developers
 
 Install brew using the official [Homebrew installation instructions](https://brew.sh/#install) 
 
-Install mongodb tools:
+Install and launch mongodb:
 ```bash
 brew tap mongodb/brew \
 brew update \
-brew install mongodb-community@4.4
+brew install mongodb-community@5.0 \
+brew services start mongodb-community@5.0
 ``` 
 
 Configure mongodb  
