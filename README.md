@@ -44,10 +44,15 @@ brew install mongodb-community@5.0 \
 brew services start mongodb-community@5.0
 ``` 
 
+Install nodejs:
+```bash
+brew install node
+``` 
+
 Clone this repository and launch frontend:
 ```bash
 git clone https://github.com/EetuSeppa/sendIt \ # Clone this repository
-cd sendIt\frontend \ # Navigate to frontend
+cd sendIt/frontend \ # Navigate to frontend
 npm install \ # Install dependencies
 npm start # Launch frontend
 ``` 
