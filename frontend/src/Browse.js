@@ -13,7 +13,8 @@ class Browse extends React.Component {
 			routeView: null,
 			filterView: false,
 			unsortedRoutes: [],
-			filterKey: 0
+			filterKey: 0,
+			noRoutesFound: false
 		}
 		this.retrieveAllRoutes = this.retrieveAllRoutes.bind(this);
 		this.changeToRouteView = this.changeToRouteView.bind(this);
@@ -38,6 +39,7 @@ class Browse extends React.Component {
 					let responseObj = JSON.parse(xhr.response);
 					this.setState({retrievedRoutes: responseObj});
 				} else {
+					this.setState({noRoutesFound: true});
 					this.setState({retrievedRoutes: []});
 				}
 			}
@@ -99,7 +101,10 @@ class Browse extends React.Component {
 	}
 
     render() {
-		if (this.state.retrievedRoutes != null) {
+		if (this.state.retrievedRoutes == null) {
+			return (<h1>Loading routes...</h1>);
+
+		} else if (!this.state.noRoutesFound) {
 			let routeList = [];
 			this.state.retrievedRoutes.routes.forEach((element, i) => {
 				routeList.push(
@@ -114,8 +119,8 @@ class Browse extends React.Component {
 				);
 			});
 
-				if (!this.state.routeView) {
-					return (
+			if (!this.state.routeView) {
+				return (
 					<div class="relative overflow-scroll h-screen pr-6 pl-6 max-w-sm mx-auto bg-red-300 rounded-xl">
 	    				<Back handler={this.props.handler}/>
 						{this.state.filterView? <BrowseFilter close={this.closeFilter} resetFilter={this.resetFilter} key={this.state.filterKey} handler={this.retrieveFilteredRoutes}/>: null}
@@ -130,9 +135,16 @@ class Browse extends React.Component {
 					<RouteView close={this.closeRouteView} username={this.props.username} data={this.state.routeView} />
 					);
 				}
-		} else {
-			return (<h1>Loading routes...</h1>);
-		}
+		} else if (this.state.noRoutesFound) {
+			return (
+        		<div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
+	    			<Back handler={this.props.handler}/>
+          			<h2>
+						  This wall doesn't have any routes. Be the first one to create one?
+          			</h2>
+        		</div>
+			)
+		} 
     }
 }
 

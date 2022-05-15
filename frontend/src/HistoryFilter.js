@@ -1,5 +1,6 @@
 import React from 'react';
 import GradeFilterSlider from './GradeFilterSlider';
+import AttemptsSlider from './AttemptsSlider'
 
 class HistoryFilter extends React.Component {
   constructor (props) {
@@ -17,8 +18,8 @@ class HistoryFilter extends React.Component {
 
     this.lowDateChangeHandler = this.lowDateChangeHandler.bind(this);
     this.highDateChangeHandler = this.highDateChangeHandler.bind(this);
-    this.attemptsChangeHandler = this.attemptsChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.attemptsFromSlider = this.attemptsFromSlider.bind(this);
   }
 
   gradeFromSlider (lowGrade, highGrade) {
@@ -26,6 +27,10 @@ class HistoryFilter extends React.Component {
         gradeLow: lowGrade,
         gradeHigh: highGrade
     })
+}
+
+attemptsFromSlider (value) {
+  this.setState({attempts: value});
 }
 
   lowDateChangeHandler (event) {
@@ -47,11 +52,9 @@ class HistoryFilter extends React.Component {
       } 
 
       this.props.handler(filterData);
-    }
-
-  attemptsChangeHandler(event) {
-    this.setState({attempts: event.target.value});
+    this.props.close();
   }
+
 
   render () {
       return (
@@ -65,7 +68,7 @@ class HistoryFilter extends React.Component {
                     <GradeFilterSlider resetFilter={this.props.resetFilter} gradeHandler={this.gradeFromSlider}/>
                   <label>
                     <h2 class="mt-3">Number of tries:</h2>
-                    <input onChange={this.attemptsChangeHandler} type="range" min="1" max="11"/>
+                    <AttemptsSlider passValues={this.attemptsFromSlider}/>
                     </label>
                     <br/>
                   <label>

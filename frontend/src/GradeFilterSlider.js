@@ -142,6 +142,7 @@ class GradeFilterSlider extends React.Component {
                 />
                 <text x={this.min_determineSliderPosition() - 10} y="20"
                     onDrag={(event) => event.preventDefault()} 
+                    class="select-none"
                 >
                     {this.min_getGradeFromPosition()}
                 </text>
@@ -157,6 +158,7 @@ class GradeFilterSlider extends React.Component {
                 />
                 <text x={this.max_determineSliderPosition() - 10} y="20"
                     onDrag={(event) => event.preventDefault()} 
+                    class="select-none"
                 >
                     {this.max_getGradeFromPosition()}
                 </text>

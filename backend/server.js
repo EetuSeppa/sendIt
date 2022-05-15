@@ -84,7 +84,7 @@ app.get('/getRoutes', function (req, res, next) {
                 });
                 res.status(200).send(JSON.stringify(resObj));
             } else {
-                res.status(404).send();
+                res.status(200).send();
             }
         });
     });

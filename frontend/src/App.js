@@ -65,7 +65,7 @@ class App extends React.Component {
                   Enter username:
                   <input type="text" value={this.state.username} onChange={this.usernameHandler}/>
                 </label>
-                <input type="submit" value="Continue"/>
+                <input class="p-2" type="submit" value="Continue"/>
               </form>
             </div>
           )
