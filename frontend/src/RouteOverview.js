@@ -27,8 +27,8 @@ class RouteOverview extends React.Component {
 
     render() {
         return (
-            <div>
-                <svg class="p-3 inline-block" width="70" height="100">
+            <div >
+                <svg class="" width="70" height="100">
                     {this.state.holdsToDisplay}
                 </svg>
             </div>

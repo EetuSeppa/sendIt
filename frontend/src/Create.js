@@ -101,17 +101,17 @@ class Create extends React.Component {
     let holdsToRender = this.loadHolds();
     return (
       <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
-        <button class="h-5" onClick={this.props.close}>Back</button>
+        <button onClick={this.props.close}>Back</button>
         <img class="block" src="/board.jpg"/>
-        <svg class="block m-6 max-w-sm mx-auto inset-0 left-12 top-6 absolute" 
+        <svg class="block max-w-sm mx-auto left-25 top-12 absolute" 
           width="700" height="500">
           {holdsToRender}
         </svg>
-        <div class="space-x-5">
-          <button onClick={() => this.changeHoldType("Start")}>Start</button>
-          <button onClick={() => this.changeHoldType("Top")}>Top</button>
-          <button onClick={() => this.changeHoldType("Feet")}>Feet</button>
-          <button onClick={this.doneButtonClicked}>Done</button>
+        <div class="mt-5 space-x-2 border-2 rounded p-3 border-rose-200">
+          <button class={(this.state.holdType==="Start"? "border-black bg-slate-500 ": "border-rose-200 " ) + "p-2 rounded-xl border-2"} onClick={() => this.changeHoldType("Start")}>Start</button>
+          <button class={(this.state.holdType==="Top"? "border-black bg-slate-500 ": "border-rose-200 " ) + "p-2 rounded-xl border-2"} onClick={() => this.changeHoldType("Top")}>Top</button>
+          <button class={(this.state.holdType==="Feet"? "border-black bg-slate-500 ": "border-rose-200 " ) + "p-2 rounded-xl border-2"} onClick={() => this.changeHoldType("Feet")}>Feet</button>
+          <button class="border-rose-200 float-right p-2 rounded-xl border-2" onClick={this.doneButtonClicked}>Done</button>
         </div>
         {this.state.displayInfoInsert? <InsertRouteInfo username={this.props.username} routeCreated={()=>this.props.close()} close={this.closeInformationInsert} handler={this.submitRoute}/> : null}
       </div>

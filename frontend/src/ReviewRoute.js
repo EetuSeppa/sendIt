@@ -1,5 +1,6 @@
 import React from 'react';
 import getGradeFromIndex from './GradeFromIndex';
+import RouteOverview from './RouteOverview';
 
 class ReviewRoute extends React.Component {
 	constructor(props) {
@@ -120,44 +121,47 @@ class ReviewRoute extends React.Component {
     render () {
         return (
 			<div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
-                <button onClick={this.props.close}>Back</button>
-                <h2>Name:  {this.props.routeInfo.name}</h2>
-                <h2>Grade:  {getGradeFromIndex(this.props.routeInfo.grade)}</h2>
-                <h2>Date: {this.state.dateString}</h2>
+                <button class="mb-7" onClick={this.props.close}>Back</button>
+                <div class="flex">
+                    <RouteOverview holds={this.props.routeInfo.holds} />
+                    <div class="">
+                        <h2 class="">Name:  {this.props.routeInfo.name}</h2>
+                        <h2 class="">Grade:  {getGradeFromIndex(this.props.routeInfo.grade)}</h2>
+                        <h2 class="">Date: {this.state.dateString}</h2>
+                    </div>
+                </div>
                 <form onSubmit={this.sendReview}>
 
                     <label>
                         Number of attempts
                         <br/>
-                        <button onClick={this.decNumOfAttempts}>-</button>
-                        <h2>{this.state.numOfAttempts}</h2>
-                        <button onClick={this.incNumOfAttempts}>+</button>
+                        <button class="inline text-3xl" onClick={this.decNumOfAttempts}>-</button>
+                        <h2 class="inline m-4" >{this.state.numOfAttempts}</h2>
+                        <button class="inline text-3xl" onClick={this.incNumOfAttempts}>+</button>
                     </label>
                     <br/>
 
                     <label>
                        Grade feel 
                         <br/>
-                        <button onClick={this.decGrade}>-</button>
-                        <h2>{getGradeFromIndex(this.state.gradeNum)}</h2>
-                        <button onClick={this.incGrade}>+</button>
+                        <button class="inline text-3xl" onClick={this.decGrade}>-</button>
+                        <button class="inline relative text-3xl left-20" onClick={this.incGrade}>+</button>
+                        <h2 class="inline m-3">{getGradeFromIndex(this.state.gradeNum)}</h2>
                     </label>
                     <br/>
                     <label>
                         Review 1-5
                         <br/>
-                        <button onClick={this.decReview}>-</button>
-                        <h2>{this.state.review}</h2>
-                        <button onClick={this.incReview}>+</button>
+                        <button class="inline text-3xl" onClick={this.decReview}>-</button>
+                        <h2 class="inline m-4">{this.state.review}</h2>
+                        <button class="inline text-3xl" onClick={this.incReview}>+</button>
                     </label>
                     <br/>
                     <label>
-                        Comment
-                        <br/>
+                        <h2 class="mt-5">Comment</h2>
                         <textarea value={this.state.comment} onChange={this.commentChange} />
                     </label>
-                    <br/>
-                    <input type="submit" value="Done"/>
+                    <input class="mt-1 p-2 rounded-xl border-2 float-right" type="submit" value="Done"/>
                 </form>
             </div>
         );

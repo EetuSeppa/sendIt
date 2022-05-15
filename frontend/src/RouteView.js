@@ -62,7 +62,7 @@ class RouteView extends React.Component {
                 <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
                 <button class="h-5" onClick={this.props.close}>Back</button>
                 <img class="block" src="/board.jpg"/>
-                <svg class="block m-6 max-w-sm mx-auto inset-0 left-12 top-6 absolute" 
+                <svg class="block max-w-sm mx-auto left-25 top-12 absolute" 
                 width="700" height="550">
                     {this.state.holdsToRender}
                 </svg>

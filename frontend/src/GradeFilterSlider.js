@@ -140,7 +140,9 @@ class GradeFilterSlider extends React.Component {
                     onPointerDown={this.min_dragStart}
                     onPointerUp={this.min_dragEnd}
                 />
-                <text x={this.min_determineSliderPosition() - 10} y="20">
+                <text x={this.min_determineSliderPosition() - 10} y="20"
+                    onDrag={(event) => event.preventDefault()} 
+                >
                     {this.min_getGradeFromPosition()}
                 </text>
 
@@ -153,7 +155,9 @@ class GradeFilterSlider extends React.Component {
                     onPointerDown={this.max_dragStart}
                     onPointerUp={this.max_dragEnd}
                 />
-                <text x={this.max_determineSliderPosition() - 10} y="20">
+                <text x={this.max_determineSliderPosition() - 10} y="20"
+                    onDrag={(event) => event.preventDefault()} 
+                >
                     {this.max_getGradeFromPosition()}
                 </text>
                 <line x1="0" y1="40" x2={this.min_determineSliderPosition() - 7} y2="40" stroke='white'/>

@@ -59,16 +59,17 @@ class InsertRouteInfo extends React.Component {
 
   render () {
       return (
-          <div>
+          <div class="box-border p-6 mt-2 top-10">
+            <button class="border-2 rounded-xl p-2" onClick={this.props.close}>Return</button>
+            <h2 class="mt-5">Grade</h2>
             <div>
-                <button onClick={this.props.close}>Return</button>
-                <button onClick={() => this.changeGrade('-')}>-</button>
-                <h1>{this.getGradeFromIndex(this.state.gradeNum)}</h1>
-                <button onClick={() => this.changeGrade('+')}>+</button>
+                <button class="inline text-3xl" onClick={() => this.changeGrade('-')}>-</button>
+                <button class="inline relative text-3xl left-20" onClick={() => this.changeGrade('+')}>+</button>
+                <h1 class="inline m-4" >{this.getGradeFromIndex(this.state.gradeNum)}</h1>
             </div>
             <form onSubmit={this.submitHandler}>
                 <label>
-                    Name
+                    <h2 class="mt-5">Name</h2>
                     <input onChange={this.nameInputHandler} type="text" value={this.state.name}/>
                 </label>
                 <label>
@@ -76,11 +77,16 @@ class InsertRouteInfo extends React.Component {
                     <textarea onChange={this.descriptionInputHandler} value={this.state.description}/>
                 </label>
                 <div onChange={this.feetChangeHandler}>
-                    <input type="radio" value = "Open feet" name="feetType" /> Open Feet
-                    <input type="radio" value = "Feet follow hands" name="feetType" /> Feet follow hands
-                    <input type="radio" value = "No feet" name="feetType" /> No feet
+                    <h2 class="mt-5">Type: </h2>
+                    Open feet <input  type="radio" value = "Open feet" name="feetType" />
+                    <br/>
+                    Feet follow hands<input type="radio" value = "Feet follow hands" name="feetType" />
+                    <br/>
+                    No feet<input type="radio" value = "No feet" name="feetType" />
+                    <br/>
                 </div>
-                <input type="submit" value="Add route"/>
+                <br/>
+                <input class="border-2 p-2 rounded-xl float-right" type="submit" value="Publish"/>
             </form>
           </div>
       )
