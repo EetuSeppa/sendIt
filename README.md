@@ -7,9 +7,7 @@ App for taking your climbing training to the next level
 ### * Windows  
 [Download node.js](https://nodejs.org/en/download/) 
  
-[Download mongodb](https://www.mongodb.com/try/download/community)
-
-Configure mongodb
+Download and launch mongodb using the official [Mongodb instructions](https://www.mongodb.com/try/download/community)
 
 Clone this repository and launch frontend:
 ```bash
@@ -45,8 +43,6 @@ brew update \
 brew install mongodb-community@5.0 \
 brew services start mongodb-community@5.0
 ``` 
-
-Configure mongodb  
 
 Clone this repository and launch frontend:
 ```bash
