@@ -34,8 +34,12 @@ class Browse extends React.Component {
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
-				let responseObj = JSON.parse(xhr.response);
-				this.setState({retrievedRoutes: responseObj});
+				if(xhr.response) {
+					let responseObj = JSON.parse(xhr.response);
+					this.setState({retrievedRoutes: responseObj});
+				} else {
+					this.setState({retrievedRoutes: []});
+				}
 			}
 		}
 

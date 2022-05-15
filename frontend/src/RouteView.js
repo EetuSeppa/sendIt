@@ -60,14 +60,15 @@ class RouteView extends React.Component {
         if (!this.state.reviewView && !this.state.editView) {
             return (
                 <div class="p-6 max-w-sm mx-auto bg-red-300 rounded-xl">
-                <img class="block" src="https://27crags.s3.amazonaws.com/photos/000/170/170566/huge-36b290a1ec75.jpg"/>
-                <svg class="p-6 max-w-sm mx-auto inset-0 absolute" width="400px" height="350">
+                <button class="h-5" onClick={this.props.close}>Back</button>
+                <img class="block" src="/board.jpg"/>
+                <svg class="block m-6 max-w-sm mx-auto inset-0 left-12 top-6 absolute" 
+                width="700" height="550">
                     {this.state.holdsToRender}
                 </svg>
                 <h2>{this.props.data.name}</h2>
                 <h2>{getGradeFromIndex(this.props.data.grade)}</h2>
                 <br/>
-                <button onClick={this.props.close}>Back</button>
                 <br/>
                 {this.props.completed? 
                     null:

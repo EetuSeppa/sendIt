@@ -129,7 +129,7 @@ class GradeFilterSlider extends React.Component {
 
         return (
             <svg class="block" width="100" height="60"
-                    onMouseMove={this.mousePosition}
+                    onPointerMove={this.mousePosition}
                 >
                 <circle 
                     cx={this.min_determineSliderPosition()}

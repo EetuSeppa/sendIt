@@ -69,18 +69,23 @@ app.get('/getRoutes', function (req, res, next) {
                 routes: []
             };
 
-            routes.forEach((element) => {
-                resObj.routes.push({
-                    name: element.name,
-                    description: element.description,
-                    feet: element.feet,
-                    grade: element.grade,
-                    holds: element.holds,
-                    username: element.username,
-                    date: element.date
+            if (routes.length > 0) {
+
+                routes.forEach((element) => {
+                    resObj.routes.push({
+                        name: element.name,
+                        description: element.description,
+                        feet: element.feet,
+                        grade: element.grade,
+                        holds: element.holds,
+                        username: element.username,
+                        date: element.date
+                    });
                 });
-            });
-            res.status(200).send(JSON.stringify(resObj));
+                res.status(200).send(JSON.stringify(resObj));
+            } else {
+                res.status(404).send();
+            }
         });
     });
 });

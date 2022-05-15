@@ -59,6 +59,8 @@ class Hold extends React.Component {
                   width = {this.props.w} height = {this.props.h} 
                   fill-opacity="0" stroke={color}
                   stroke-width="2"
+                  rx="3"
+
             />
         )
     }
