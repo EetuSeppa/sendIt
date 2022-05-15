@@ -38,9 +38,9 @@ Install brew using the official [Homebrew installation instructions](https://bre
 
 Install and launch mongodb:
 ```bash
-brew tap mongodb/brew \
-brew update \
-brew install mongodb-community@5.0 \
+brew tap mongodb/brew
+brew update
+brew install mongodb-community@5.0
 brew services start mongodb-community@5.0
 ``` 
 
@@ -51,9 +51,9 @@ brew install node
 
 Clone this repository and launch frontend:
 ```bash
-git clone https://github.com/EetuSeppa/sendIt \
-cd sendIt/frontend #Navigate to frontend \ 
-npm install #Install dependencies \ 
+git clone https://github.com/EetuSeppa/sendIt # Clone this repository
+cd sendIt/frontend # Navigate to frontend
+npm install # Install dependencies 
 npm start # Launch frontend
 ``` 
 
@@ -61,8 +61,8 @@ Open a new terminal window and navigate to the project source
 
 Then install and launch backend:
 ```bash
-cd backend \
-npm install \
+cd backend
+npm install
 node server.js mongodb://localhost:27017
 ```
 
