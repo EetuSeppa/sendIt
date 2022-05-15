@@ -34,7 +34,10 @@ Now you can navigate to [localhost:3000](http://localhost:3000) and try out the 
 xcode-select --install # Required for brew, also usefull for developers
 ```
 
-Install brew using the official [Homebrew installation instructions](https://brew.sh/#install) 
+Install brew:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+``` 
 
 Install and launch mongodb:
 ```bash
