@@ -52,9 +52,9 @@ brew install node
 Clone this repository and launch frontend:
 ```bash
 git clone https://github.com/EetuSeppa/sendIt
-cd sendIt/frontend # Navigate to frontend
-npm install # Install dependencies 
-npm start # Launch frontend
+cd sendIt/frontend
+npm install 
+npm start
 ``` 
 
 Open a new terminal window and navigate to the project source  
